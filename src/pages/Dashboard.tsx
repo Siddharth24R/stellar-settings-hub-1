@@ -21,16 +21,14 @@ const Dashboard = () => {
       <div className="max-w-6xl mx-auto">
         <header className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg shadow-lg p-4 mb-6 flex justify-between items-center">
           <div>
-            <h1 className="text-2xl font-bold text-white">IoT_Stellar</h1>
+            <h1 className="text-2xl font-bold text-white">Home</h1>
           </div>
           <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <span className="text-blue-300">{isArmed ? 'Armed' : 'Disarmed'}</span>
-              <UISwitch 
-                checked={isArmed} 
-                onCheckedChange={handleArmSystem}
-              />
-            </div>
+            <Link to="/clips">
+              <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40">
+                <Film className="h-5 w-5" />
+              </Button>
+            </Link>
             <Link to="/settings">
               <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40">
                 <Settings className="h-5 w-5" />
@@ -42,7 +40,7 @@ const Dashboard = () => {
         <div className="space-y-6">
           <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white">
             <Link to="/home">
-              <div className="p-4 aspect-video relative bg-gray-900 rounded-lg overflow-hidden">
+              <div className="p-4 aspect-video relative bg-gray-900 rounded-lg overflow-hidden cursor-pointer transition-all hover:opacity-90">
                 {isLive ? (
                   <>
                     <div className="absolute top-4 left-4 bg-red-600 rounded-full w-3 h-3 animate-pulse"></div>

@@ -3,19 +3,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import { ArrowLeft, Shield, ShieldOff } from 'lucide-react';
+import { ArrowLeft, Shield, ShieldOff, Film } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Switch } from '@/components/ui/switch';
 
 const Home = () => {
   const [isArmed, setIsArmed] = useState(false);
   const [isStreaming, setIsStreaming] = useState(true);
   const { toast } = useToast();
 
-  const toggleArmed = () => {
-    const newState = !isArmed;
-    setIsArmed(newState);
+  const toggleArmed = (checked: boolean) => {
+    setIsArmed(checked);
     
-    if (newState) {
+    if (checked) {
       setIsStreaming(false);
       toast({
         title: "System Armed",
@@ -45,34 +45,21 @@ const Home = () => {
                 <ArrowLeft className="h-5 w-5" />
               </Link>
             </Button>
-            <h1 className="text-2xl font-bold text-white">Home</h1>
           </div>
           
-          <div className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-full p-2 flex space-x-2">
-            <Button 
-              variant={isArmed ? "ghost" : "default"}
-              onClick={toggleArmed}
-              className={`py-2 px-8 rounded-full font-semibold ${
-                isArmed 
-                  ? "bg-gray-700 text-white hover:bg-gray-600" 
-                  : "bg-green-500 text-black hover:bg-green-400"
-              }`}
-            >
-              <ShieldOff className={`mr-2 h-5 w-5 ${isArmed ? "hidden" : ""}`} />
-              Disarmed
-            </Button>
-            <Button 
-              variant={isArmed ? "default" : "ghost"}
-              onClick={toggleArmed}
-              className={`py-2 px-8 rounded-full font-semibold ${
-                isArmed 
-                  ? "bg-red-600 text-white hover:bg-red-500" 
-                  : "bg-gray-700 text-white hover:bg-gray-600"
-              }`}
-            >
-              <Shield className={`mr-2 h-5 w-5 ${isArmed ? "" : "hidden"}`} />
-              Armed
-            </Button>
+          <div className="flex items-center space-x-4">
+            <Link to="/clips">
+              <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40">
+                <Film className="h-5 w-5" />
+              </Button>
+            </Link>
+            <div className="flex items-center space-x-2">
+              <span className="text-blue-300">{isArmed ? 'Armed' : 'Disarmed'}</span>
+              <Switch 
+                checked={isArmed} 
+                onCheckedChange={toggleArmed}
+              />
+            </div>
           </div>
         </header>
 
