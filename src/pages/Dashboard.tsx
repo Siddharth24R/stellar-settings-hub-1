@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useAuth } from '@/contexts/AuthContext';
-import { Home, Film, Settings, Switch } from 'lucide-react';
+import { Home, Film, Settings, Power } from 'lucide-react';
 import { Switch as UISwitch } from '@/components/ui/switch';
 
 const Dashboard = () => {
@@ -63,7 +63,7 @@ const Dashboard = () => {
                   </>
                 ) : (
                   <div className="flex flex-col items-center justify-center h-full space-y-2">
-                    <Switch className="h-12 w-12 text-red-500" />
+                    <Power className="h-12 w-12 text-red-500" />
                     <p className="text-red-400">System Armed - Live View Disabled</p>
                   </div>
                 )}
