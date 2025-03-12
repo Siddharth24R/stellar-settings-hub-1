@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -18,7 +17,7 @@ const DeviceSetup = () => {
   const [step, setStep] = useState(1);
 
   const handleNext = () => {
-    if (step < 4) {
+    if (step < 3) {
       setStep(step + 1);
     } else {
       handleDeviceSetup();
@@ -121,59 +120,6 @@ const DeviceSetup = () => {
         return (
           <div className="space-y-4">
             <div className="text-center mb-6">
-              <Wifi className="h-24 w-24 text-blue-300 mb-4 mx-auto" />
-              <p className="text-blue-100">Connect your device to your home Wi-Fi network.</p>
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="wifi-name" className="text-white">Wi-Fi Network Name</Label>
-              <Input
-                id="wifi-name"
-                type="text"
-                placeholder="Enter your Wi-Fi name"
-                value={wifiName}
-                onChange={(e) => setWifiName(e.target.value)}
-                className="bg-black/50 text-white border-blue-400/50"
-                required
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="wifi-password" className="text-white">Wi-Fi Password</Label>
-              <div className="relative">
-                <Lock className="absolute left-3 top-3 h-4 w-4 text-blue-300" />
-                <Input
-                  id="wifi-password"
-                  type="password"
-                  placeholder="Enter your Wi-Fi password"
-                  value={wifiPassword}
-                  onChange={(e) => setWifiPassword(e.target.value)}
-                  className="pl-10 bg-black/50 text-white border-blue-400/50"
-                  required
-                />
-              </div>
-            </div>
-            <div className="flex space-x-2">
-              <Button 
-                variant="outline" 
-                className="flex-1 border-blue-400/50 text-blue-300"
-                onClick={handleBack}
-              >
-                Back
-              </Button>
-              <Button 
-                className="flex-1 bg-blue-600 hover:bg-blue-700"
-                onClick={handleNext}
-                disabled={!wifiName || !wifiPassword}
-              >
-                Next
-              </Button>
-            </div>
-          </div>
-        );
-      
-      case 4:
-        return (
-          <div className="space-y-4">
-            <div className="text-center mb-6">
               <div className="rounded-full h-24 w-24 bg-blue-600/20 flex items-center justify-center mx-auto mb-4">
                 <div className="rounded-full h-16 w-16 bg-blue-500/30 flex items-center justify-center">
                   <div className="rounded-full h-8 w-8 bg-blue-400" />
@@ -228,7 +174,7 @@ const DeviceSetup = () => {
         <CardContent>
           <div className="mb-6">
             <div className="flex justify-between mb-2">
-              {[1, 2, 3, 4].map(i => (
+              {[1, 2, 3].map(i => (
                 <div 
                   key={i} 
                   className={`w-10 h-10 rounded-full flex items-center justify-center
@@ -242,7 +188,7 @@ const DeviceSetup = () => {
             <div className="relative h-2 bg-gray-700 rounded-full mb-4">
               <div 
                 className="absolute top-0 left-0 h-2 bg-blue-600 rounded-full"
-                style={{ width: `${(step / 4) * 100}%` }}
+                style={{ width: `${(step / 3) * 100}%` }}
               />
             </div>
           </div>
