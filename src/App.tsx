@@ -15,6 +15,7 @@ import Settings from "./pages/Settings";
 import Home from "./pages/Home";
 import Help from "./pages/Help";
 import Clips from "./pages/Clips";
+import DeviceSetup from "./pages/DeviceSetup";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,9 @@ const App = () => (
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            
+            {/* Device Setup - between login and dashboard */}
+            <Route path="/device-setup" element={<DeviceSetup />} />
             
             {/* Protected routes */}
             <Route element={<ProtectedRoute />}>

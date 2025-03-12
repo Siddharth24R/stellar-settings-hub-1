@@ -36,7 +36,10 @@ const Login = () => {
     try {
       setIsSubmitting(true);
       await login(email, password);
-      navigate('/dashboard');
+      
+      // Redirect to device setup instead of dashboard
+      // In a real app, you might check if device is already set up
+      navigate('/device-setup');
     } catch (error) {
       console.error('Login error:', error);
       // Error is handled in the AuthContext

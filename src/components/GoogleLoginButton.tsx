@@ -3,15 +3,19 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { Loader2 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const GoogleLoginButton = () => {
   const { googleLogin } = useAuth();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = React.useState(false);
 
   const handleGoogleLogin = async () => {
     try {
       setIsLoading(true);
       await googleLogin();
+      // Redirect to device setup instead of dashboard
+      navigate('/device-setup');
     } catch (error) {
       console.error('Google login error:', error);
     } finally {
