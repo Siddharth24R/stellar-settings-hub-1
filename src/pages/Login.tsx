@@ -55,7 +55,7 @@ const Login = () => {
   return (
     <div 
       className="min-h-screen flex items-center justify-center px-4 bg-cover bg-center"
-      style={{ backgroundImage: 'url("/lovable-uploads/7d64b9bf-202a-484f-aead-0441172275be.png")' }}
+      style={{ backgroundImage: 'url("/lovable-uploads/24864662-74cf-48bb-8c67-8791e6431f8b.png")' }}
     >
       <Card className="w-full max-w-md shadow-2xl bg-black/40 backdrop-blur-sm border border-blue-400/30">
         <CardHeader className="space-y-1 text-center">
@@ -64,7 +64,7 @@ const Login = () => {
           <div className="flex justify-center my-6">
             <div className="rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-48 h-48 flex items-center justify-center bg-black/30">
               <img 
-                src="/lovable-uploads/ae4c8c1a-19a1-46a8-b684-1b0b6b6f4933.png" 
+                src="/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png" 
                 alt="IoT Logo"
                 className="w-full h-full object-cover"
               />

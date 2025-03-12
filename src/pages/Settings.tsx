@@ -12,21 +12,22 @@ import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const Settings = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, updateUserProfile } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const [notifications, setNotifications] = useState(true);
+  const [notifications, setNotifications] = useState(user?.notifications || false);
+  const [isNotificationSaved, setIsNotificationSaved] = useState(true);
   const [activeSection, setActiveSection] = useState('account'); // Default to account section
 
   // User profile state
   const [profile, setProfile] = useState({
     name: user?.name || '',
     email: user?.email || '',
-    password: '••••••••', // Placeholder password
-    phone: '',
-    dob: '',
-    photo: '/lovable-uploads/ae4c8c1a-19a1-46a8-b684-1b0b6b6f4933.png' // Default avatar
+    password: '••••••••', // Placeholder password (uneditable)
+    phone: user?.phone || '',
+    dob: user?.dob || '',
+    photo: user?.photo || '/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png'
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -35,27 +36,22 @@ const Settings = () => {
     navigate('/dashboard');
   };
 
-  const handleSaveNotifications = () => {
-    if (notifications !== user?.notifications) {
-      toast({
-        title: "Notification Preferences Saved",
-        description: `Notifications are now ${notifications ? 'enabled' : 'disabled'}.`,
-      });
-    }
+  const handleNotificationChange = (checked: boolean) => {
+    setNotifications(checked);
+    setIsNotificationSaved(false);
   };
 
-  const handleSaveSecurity = () => {
-    toast({
-      title: "Security Settings Saved",
-      description: "Your security information has been updated successfully.",
-    });
+  const handleSaveNotifications = () => {
+    updateUserProfile({ notifications });
+    setIsNotificationSaved(true);
   };
 
   const handleSaveProfile = () => {
     setIsEditing(false);
-    toast({
-      title: "Profile Updated",
-      description: "Your profile information has been updated successfully.",
+    updateUserProfile({
+      name: profile.name,
+      phone: profile.phone,
+      dob: profile.dob
     });
   };
 
@@ -190,7 +186,7 @@ const Settings = () => {
                   <Switch 
                     id="notifications"
                     checked={notifications} 
-                    onCheckedChange={setNotifications}
+                    onCheckedChange={handleNotificationChange}
                   />
                 </div>
                 <p className="text-blue-100/70 text-sm mt-2">
@@ -203,7 +199,7 @@ const Settings = () => {
                   variant="outline" 
                   size="sm" 
                   className="mt-4 bg-black/20 border-blue-400/50 text-blue-300 hover:bg-black/40"
-                  disabled={notifications === user?.notifications}
+                  disabled={isNotificationSaved}
                 >
                   Save Preferences
                 </Button>
@@ -241,8 +237,8 @@ const Settings = () => {
                       name="password"
                       type={passwordVisible ? "text" : "password"}
                       value={profile.password}
-                      onChange={handleInputChange}
                       className="bg-black/30 border-blue-400/30 text-blue-100 pr-10"
+                      readOnly={true}
                     />
                     <button 
                       type="button"
@@ -252,6 +248,7 @@ const Settings = () => {
                       {passwordVisible ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                     </button>
                   </div>
+                  <p className="text-xs text-blue-100/70 mt-1">For security reasons, password cannot be changed directly.</p>
                 </div>
               </div>
             </CardContent>
@@ -263,7 +260,8 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4" 
+         style={{ backgroundImage: `url('/lovable-uploads/24864662-74cf-48bb-8c67-8791e6431f8b.png')`, backgroundSize: 'cover' }}>
       <div className="max-w-6xl mx-auto">
         <header className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg shadow-lg p-4 mb-6 flex justify-between items-center">
           <div className="flex items-center">

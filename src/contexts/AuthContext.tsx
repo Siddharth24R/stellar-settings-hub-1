@@ -7,6 +7,9 @@ interface User {
   email: string;
   name?: string;
   notifications?: boolean;
+  phone?: string;
+  dob?: string;
+  photo?: string;
 }
 
 interface AuthContextType {
@@ -17,6 +20,7 @@ interface AuthContextType {
   googleLogin: () => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
+  updateUserProfile: (updatedData: Partial<User>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -35,6 +39,19 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     setLoading(false);
   }, []);
 
+  const updateUserProfile = (updatedData: Partial<User>) => {
+    if (!user) return;
+    
+    const updatedUser = { ...user, ...updatedData };
+    setUser(updatedUser);
+    localStorage.setItem('iot_stellar_user', JSON.stringify(updatedUser));
+    
+    toast({
+      title: "Profile Updated",
+      description: "Your profile information has been updated successfully.",
+    });
+  };
+
   const login = async (email: string, password: string) => {
     try {
       setLoading(true);
@@ -49,7 +66,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const newUser = { 
         id: Date.now().toString(), 
         email,
-        notifications: true
+        notifications: true,
+        photo: '/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png'
       };
       setUser(newUser);
       localStorage.setItem('iot_stellar_user', JSON.stringify(newUser));
@@ -85,7 +103,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: Date.now().toString(), 
         email, 
         name,
-        notifications: true
+        notifications: true,
+        photo: '/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png'
       };
       setUser(newUser);
       localStorage.setItem('iot_stellar_user', JSON.stringify(newUser));
@@ -117,7 +136,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         id: 'google-' + Date.now().toString(), 
         email: 'user@gmail.com',
         name: 'Google User',
-        notifications: true
+        notifications: true,
+        photo: '/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png'
       };
       
       setUser(googleUser);
@@ -155,7 +175,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       register, 
       googleLogin, 
       logout,
-      isAuthenticated: !!user 
+      isAuthenticated: !!user,
+      updateUserProfile
     }}>
       {children}
     </AuthContext.Provider>
