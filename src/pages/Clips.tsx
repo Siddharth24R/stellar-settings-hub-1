@@ -62,12 +62,6 @@ const Clips = () => {
       <div className="max-w-6xl mx-auto">
         <header className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg shadow-lg p-4 mb-6 flex justify-between items-center">
           <h1 className="text-2xl font-bold text-white">Clips</h1>
-          <div className="flex items-center">
-            <div className="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-2">
-              67
-            </div>
-            <span className="text-sm text-orange-300">Stored Clips</span>
-          </div>
         </header>
 
         <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white mb-6">
@@ -141,21 +135,6 @@ const Clips = () => {
                 <p className="text-blue-100/70">No clips found for the selected date.</p>
               </div>
             )}
-          </CardContent>
-        </Card>
-        
-        <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white">
-          <CardContent className="p-4">
-            <h3 className="text-lg font-semibold text-blue-300 mb-2">Python Integration</h3>
-            <p className="text-sm text-blue-100/70">
-              These clips are processed and stored by a Python backend that handles:
-            </p>
-            <ul className="list-disc list-inside mt-2 text-sm text-blue-100/70 space-y-1">
-              <li>Video encoding and compression</li>
-              <li>Cloud storage synchronization</li>
-              <li>Metadata generation and indexing</li>
-              <li>AI-based event classification</li>
-            </ul>
           </CardContent>
         </Card>
         
