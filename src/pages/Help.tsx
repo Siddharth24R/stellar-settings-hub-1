@@ -2,53 +2,81 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft } from 'lucide-react';
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Home as HomeIcon, Film } from 'lucide-react';
 
 const Help = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4 pb-24">
       <div className="max-w-6xl mx-auto">
-        <header className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg shadow-lg p-4 mb-6 flex justify-between items-center">
-          <div className="flex items-center">
-            <Button 
-              asChild
-              variant="ghost" 
-              size="icon"
-              className="mr-2 text-blue-300 hover:text-blue-200 hover:bg-black/40"
-            >
-              <Link to="/dashboard">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <h1 className="text-2xl font-bold text-white">Help & Support</h1>
-          </div>
+        <header className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg shadow-lg p-4 mb-6 flex items-center">
+          <Button 
+            asChild
+            variant="ghost" 
+            size="icon"
+            className="mr-2 text-blue-300 hover:text-blue-200 hover:bg-black/40"
+          >
+            <Link to="/settings">
+              <ArrowLeft className="h-5 w-5" />
+            </Link>
+          </Button>
+          <h1 className="text-2xl font-bold text-white">Help & Support</h1>
         </header>
 
-        <div className="text-center py-10">
-          <h2 className="text-3xl font-bold text-blue-300 mb-6">Need Assistance?</h2>
-          <p className="text-lg text-blue-100 mb-10 max-w-md mx-auto">
-            This page will contain help and support resources once implemented.
-          </p>
+        <div className="pb-6">
+          <h2 className="text-2xl font-bold text-blue-300 mb-2">Frequently Asked Questions</h2>
+          <p className="text-blue-100/70 mb-6">Answers to common questions</p>
           
-          <Card className="max-w-lg mx-auto bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white">
-            <CardHeader>
-              <CardTitle className="text-blue-300">Coming Soon</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-blue-100/70">
-                Help and support resources will be available in a future update.
-              </p>
-              <Button 
-                className="mt-6 bg-blue-600 hover:bg-blue-700"
-                asChild
-              >
-                <Link to="/dashboard">
-                  Return to Dashboard
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
+          <Accordion type="single" collapsible className="w-full space-y-4">
+            <AccordionItem value="item-1" className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg overflow-hidden">
+              <AccordionTrigger className="px-4 py-3 text-blue-200 hover:text-blue-100 text-lg font-medium">
+                How do I set up notifications?
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-blue-100/80">
+                To set up notifications, go to Settings &gt; Notifications and toggle the switch to enable them.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-2" className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg overflow-hidden">
+              <AccordionTrigger className="px-4 py-3 text-blue-200 hover:text-blue-100 text-lg font-medium">
+                How do I change my password?
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-blue-100/80">
+                To change your password, go to Settings &gt; Security and update your password in the form provided.
+              </AccordionContent>
+            </AccordionItem>
+
+            <AccordionItem value="item-3" className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg overflow-hidden">
+              <AccordionTrigger className="px-4 py-3 text-blue-200 hover:text-blue-100 text-lg font-medium">
+                How do I view my recorded clips?
+              </AccordionTrigger>
+              <AccordionContent className="px-4 pb-4 text-blue-100/80">
+                To view recorded clips, go to the Clips section from the navigation menu in the dashboard.
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+
+        {/* Bottom Navigation Buttons */}
+        <div className="fixed bottom-0 left-0 right-0 bg-black/80 border-t border-blue-400/30 p-4 flex justify-around">
+          <Link to="/dashboard">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <HomeIcon className="h-6 w-6 mb-1" />
+              <span className="text-xs">Home</span>
+            </Button>
+          </Link>
+          <Link to="/clips">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <Film className="h-6 w-6 mb-1" />
+              <span className="text-xs">Clips</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

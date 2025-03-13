@@ -3,18 +3,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { useAuth } from '@/contexts/AuthContext';
 import { Home, Film, Settings, Power } from 'lucide-react';
-import { Switch as UISwitch } from '@/components/ui/switch';
 
 const Dashboard = () => {
-  const [isArmed, setIsArmed] = React.useState(false);
   const [isLive, setIsLive] = React.useState(true);
-
-  const handleArmSystem = (checked: boolean) => {
-    setIsArmed(checked);
-    setIsLive(!checked);
-  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4">
@@ -68,38 +60,22 @@ const Dashboard = () => {
               </div>
             </Link>
           </Card>
+        </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white">
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-blue-300 mb-2">Python Integration</h3>
-                <p className="text-sm text-blue-100/70">
-                  This camera feed is processed by a Python backend that analyzes video frames for motion detection 
-                  and person identification.
-                </p>
-              </div>
-            </Card>
-            
-            <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white">
-              <div className="p-4">
-                <h3 className="text-lg font-semibold text-blue-300 mb-2">System Status</h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-sm text-blue-100/70">Connection:</span>
-                    <span className="text-sm text-green-400">Online</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-blue-100/70">Battery:</span>
-                    <span className="text-sm text-blue-100">87%</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-blue-100/70">Storage:</span>
-                    <span className="text-sm text-blue-100">64% Free</span>
-                  </div>
-                </div>
-              </div>
-            </Card>
-          </div>
+        {/* Bottom Navigation Buttons */}
+        <div className="fixed bottom-0 left-0 right-0 bg-black/80 border-t border-blue-400/30 p-4 flex justify-around">
+          <Link to="/dashboard">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <Home className="h-6 w-6 mb-1" />
+              <span className="text-xs">Home</span>
+            </Button>
+          </Link>
+          <Link to="/clips">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <Film className="h-6 w-6 mb-1" />
+              <span className="text-xs">Clips</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>

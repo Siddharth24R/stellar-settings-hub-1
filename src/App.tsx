@@ -12,6 +12,9 @@ import ForgotPassword from "./pages/ForgotPassword";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Settings from "./pages/Settings";
+import AccountSettings from "./pages/AccountSettings";
+import NotificationSettings from "./pages/NotificationSettings";
+import SecuritySettings from "./pages/SecuritySettings";
 import Home from "./pages/Home";
 import Help from "./pages/Help";
 import Clips from "./pages/Clips";
@@ -40,6 +43,9 @@ const App = () => (
             <Route element={<ProtectedRoute />}>
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/settings" element={<Settings />} />
+              <Route path="/account-settings" element={<AccountSettings />} />
+              <Route path="/notification-settings" element={<NotificationSettings />} />
+              <Route path="/security-settings" element={<SecuritySettings />} />
               <Route path="/home" element={<Home />} />
               <Route path="/help" element={<Help />} />
               <Route path="/clips" element={<Clips />} />
