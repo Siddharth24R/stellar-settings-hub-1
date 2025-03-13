@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowLeft, Play, Download, Calendar, Clock, Filter } from 'lucide-react';
+import { Calendar, Clock, Filter, Play, Download, Home as HomeIcon, Film } from 'lucide-react';
 
 const Clips = () => {
   const [selectedDate, setSelectedDate] = useState('all');
@@ -58,22 +58,10 @@ const Clips = () => {
     : mockClips.filter(clip => clip.date === selectedDate);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4 pb-24">
       <div className="max-w-6xl mx-auto">
         <header className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg shadow-lg p-4 mb-6 flex justify-between items-center">
-          <div className="flex items-center">
-            <Button 
-              asChild
-              variant="ghost" 
-              size="icon"
-              className="mr-2 text-blue-300 hover:text-blue-200 hover:bg-black/40"
-            >
-              <Link to="/dashboard">
-                <ArrowLeft className="h-5 w-5" />
-              </Link>
-            </Button>
-            <h1 className="text-2xl font-bold text-white">Clips</h1>
-          </div>
+          <h1 className="text-2xl font-bold text-white">Clips</h1>
           <div className="flex items-center">
             <div className="bg-orange-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold text-sm mr-2">
               67
@@ -170,6 +158,22 @@ const Clips = () => {
             </ul>
           </CardContent>
         </Card>
+        
+        {/* Bottom Navigation Buttons */}
+        <div className="fixed bottom-0 left-0 right-0 bg-black/80 border-t border-blue-400/30 p-4 flex justify-around">
+          <Link to="/dashboard">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <HomeIcon className="h-6 w-6 mb-1" />
+              <span className="text-xs">Home</span>
+            </Button>
+          </Link>
+          <Link to="/clips">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <Film className="h-6 w-6 mb-1" />
+              <span className="text-xs">Clips</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

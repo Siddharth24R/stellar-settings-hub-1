@@ -1,15 +1,16 @@
-
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Bell, Shield, Eye, EyeOff, User, LogOut } from 'lucide-react';
+import { ArrowLeft, Bell, Shield, Eye, EyeOff, User, LogOut, Camera } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Link } from 'react-router-dom';
+import { HomeIcon, Film } from 'lucide-react';
 
 const Settings = () => {
   const { user, logout, updateUserProfile } = useAuth();
@@ -19,6 +20,7 @@ const Settings = () => {
   const [notifications, setNotifications] = useState(user?.notifications || false);
   const [isNotificationSaved, setIsNotificationSaved] = useState(true);
   const [activeSection, setActiveSection] = useState('account'); // Default to account section
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // User profile state
   const [profile, setProfile] = useState({
@@ -53,6 +55,11 @@ const Settings = () => {
       phone: profile.phone,
       dob: profile.dob
     });
+    
+    toast({
+      title: "Profile Updated",
+      description: "Your profile information has been saved successfully.",
+    });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -72,6 +79,35 @@ const Settings = () => {
     navigate('/login');
   };
 
+  const handlePhotoClick = () => {
+    if (isEditing && fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handlePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+        if (event.target && event.target.result) {
+          setProfile(prev => ({
+            ...prev,
+            photo: event.target?.result as string
+          }));
+          
+          toast({
+            title: "Photo Updated",
+            description: "Your profile photo has been updated. Save your profile to apply changes.",
+          });
+        }
+      };
+      
+      reader.readAsDataURL(file);
+    }
+  };
+
   // Render section based on active tab
   const renderSection = () => {
     switch (activeSection) {
@@ -87,17 +123,35 @@ const Settings = () => {
             <CardContent className="space-y-4">
               <div className="p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg space-y-6">
                 <div className="flex flex-col items-center mb-4">
-                  <Avatar className="h-24 w-24 border-2 border-blue-400 mb-2">
-                    <AvatarImage src={profile.photo} alt={profile.name} />
-                    <AvatarFallback className="bg-blue-900 text-blue-200 text-xl">
-                      {profile.name ? profile.name.charAt(0).toUpperCase() : 'U'}
-                    </AvatarFallback>
-                  </Avatar>
+                  <div 
+                    className="relative cursor-pointer"
+                    onClick={handlePhotoClick}
+                  >
+                    <Avatar className="h-20 w-20 border-2 border-blue-400 mb-2">
+                      <AvatarImage src={profile.photo} alt={profile.name} />
+                      <AvatarFallback className="bg-blue-900 text-blue-200 text-xl">
+                        {profile.name ? profile.name.charAt(0).toUpperCase() : 'U'}
+                      </AvatarFallback>
+                    </Avatar>
+                    {isEditing && (
+                      <div className="absolute bottom-2 right-0 bg-blue-500 rounded-full p-1">
+                        <Camera className="h-4 w-4 text-white" />
+                      </div>
+                    )}
+                  </div>
+                  <input 
+                    type="file" 
+                    ref={fileInputRef} 
+                    className="hidden"
+                    accept="image/*"
+                    onChange={handlePhotoChange}
+                  />
                   {isEditing && (
                     <Button 
                       variant="outline" 
                       size="sm"
                       className="mt-2 bg-black/30 border-blue-400/50 text-blue-300 hover:bg-black/40"
+                      onClick={handlePhotoClick}
                     >
                       Change Photo
                     </Button>
@@ -260,7 +314,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4" 
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white p-4 pb-24" 
          style={{ backgroundImage: `url('/lovable-uploads/24864662-74cf-48bb-8c67-8791e6431f8b.png')`, backgroundSize: 'cover' }}>
       <div className="max-w-6xl mx-auto">
         <header className="bg-black/40 border border-blue-400/30 backdrop-blur-sm rounded-lg shadow-lg p-4 mb-6 flex justify-between items-center">
@@ -334,6 +388,22 @@ const Settings = () => {
           <div className="md:col-span-2">
             {renderSection()}
           </div>
+        </div>
+        
+        {/* Bottom Navigation Buttons */}
+        <div className="fixed bottom-0 left-0 right-0 bg-black/80 border-t border-blue-400/30 p-4 flex justify-around">
+          <Link to="/dashboard">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <HomeIcon className="h-6 w-6 mb-1" />
+              <span className="text-xs">Home</span>
+            </Button>
+          </Link>
+          <Link to="/clips">
+            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
+              <Film className="h-6 w-6 mb-1" />
+              <span className="text-xs">Clips</span>
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
