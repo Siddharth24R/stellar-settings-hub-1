@@ -39,8 +39,21 @@ const SecuritySettings = () => {
         </header>
 
         <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white">
-          <CardHeader>
-            <CardTitle className="text-blue-300">Security Settings</CardTitle>
+          <CardHeader className="flex flex-col items-center">
+            <div className="rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-24 h-24 flex items-center justify-center bg-black/30 mb-4">
+              {user?.photo ? (
+                <img 
+                  src={user.photo} 
+                  alt="Profile"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <div className="text-blue-300 text-2xl">
+                  {user?.name?.charAt(0) || user?.email?.charAt(0) || '?'}
+                </div>
+              )}
+            </div>
+            <CardTitle className="text-blue-300">{user?.name || 'User'}'s Security Settings</CardTitle>
             <CardDescription className="text-blue-100/70">
               Manage your account security settings
             </CardDescription>

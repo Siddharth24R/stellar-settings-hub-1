@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -67,11 +68,11 @@ const ForgotPassword = () => {
           </div>
           
           <div className="flex justify-center my-6">
-            <div className="rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-24 h-24 flex items-center justify-center bg-black/30">
+            <div className="rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-48 h-48 flex items-center justify-center bg-black/30">
               <img 
                 src="/lovable-uploads/e5259e23-097c-45a3-a080-d65a22afbe28.png" 
                 alt="IoT Logo"
-                className="w-20 h-20 object-contain"
+                className="w-full h-full object-contain"
               />
             </div>
           </div>

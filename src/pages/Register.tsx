@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
 import { Eye, EyeOff, Mail, Lock, User, Phone, Calendar, Loader2 } from 'lucide-react';
 import GoogleLoginButton from '@/components/GoogleLoginButton';
+import ProfilePhotoUpload from '@/components/ProfilePhotoUpload';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -16,6 +17,8 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [phone, setPhone] = useState('');
   const [dob, setDob] = useState('');
+  const [profilePic, setProfilePic] = useState<File | null>(null);
+  const [profilePicUrl, setProfilePicUrl] = useState<string | null>(null);
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
@@ -29,6 +32,11 @@ const Register = () => {
       navigate('/dashboard');
     }
   }, [isAuthenticated, navigate]);
+
+  const handleProfilePhotoChange = (file: File, dataUrl: string) => {
+    setProfilePic(file);
+    setProfilePicUrl(dataUrl);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,9 +58,8 @@ const Register = () => {
     
     try {
       setIsSubmitting(true);
-      // In a real app, we would pass additional profile fields to the register function
-      await register(email, password, name);
-      // Additional fields would be saved in a user profile database table
+      // Pass the profile picture URL to the register function
+      await register(email, password, name, profilePicUrl || undefined);
       navigate('/device-setup');
     } catch (error) {
       console.error('Registration error:', error);
@@ -79,16 +86,10 @@ const Register = () => {
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold text-white">IoT_Stellar</CardTitle>
           
-          <div className="flex justify-center my-6">
-            <div className="rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-48 h-48 flex items-center justify-center bg-black/30">
-              <img 
-                src="/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png" 
-                alt="IoT Logo"
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <p className="text-xs text-blue-200/60 absolute mt-48">Profile Photo (Optional)</p>
-          </div>
+          <ProfilePhotoUpload 
+            onPhotoChange={handleProfilePhotoChange}
+            className="my-6"
+          />
           
           <CardDescription className="text-blue-200">Create your IoT_Stellar account</CardDescription>
         </CardHeader>
