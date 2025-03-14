@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { Mail, ArrowLeft, Loader2 } from 'lucide-react';
+import { Mail, ArrowLeft, Loader2, Robot, Lightbulb } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ForgotPassword = () => {
@@ -69,11 +68,10 @@ const ForgotPassword = () => {
           
           <div className="flex justify-center my-6">
             <div className="rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-48 h-48 flex items-center justify-center bg-black/30">
-              <img 
-                src="/lovable-uploads/e5259e23-097c-45a3-a080-d65a22afbe28.png" 
-                alt="IoT Logo"
-                className="w-full h-full object-contain"
-              />
+              <div className="flex flex-col items-center justify-center">
+                <Robot className="h-16 w-16 text-blue-300 mb-3" />
+                <Lightbulb className="h-16 w-16 text-blue-300" />
+              </div>
             </div>
           </div>
           

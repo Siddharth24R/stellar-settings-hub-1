@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, QrCode, Wifi, Lock } from 'lucide-react';
+import { Loader2, QrCode, Wifi, Tablet } from 'lucide-react';
 
 const DeviceSetup = () => {
   const navigate = useNavigate();
@@ -60,11 +60,11 @@ const DeviceSetup = () => {
         return (
           <div className="space-y-4">
             <div className="text-center mb-6">
-              <div className="rounded-lg overflow-hidden border-2 border-blue-400 w-full max-w-xs mx-auto mb-4">
+              <div className="flex justify-center">
                 <img 
-                  src="/lovable-uploads/328c0f12-0d4e-43e1-a18e-f01b5d06a8f0.png" 
-                  alt="IoT Device"
-                  className="w-full object-cover"
+                  src="/lovable-uploads/b0828401-df99-416f-9e97-441e3fdf63ce.png" 
+                  alt="Blue Dot"
+                  className="w-32 h-32 object-contain"
                 />
               </div>
               <p className="text-blue-100">Power on your IoT_Stellar device and wait for the status light to blink blue.</p>
@@ -120,10 +120,12 @@ const DeviceSetup = () => {
         return (
           <div className="space-y-4">
             <div className="text-center mb-6">
-              <div className="rounded-full h-24 w-24 bg-blue-600/20 flex items-center justify-center mx-auto mb-4">
-                <div className="rounded-full h-16 w-16 bg-blue-500/30 flex items-center justify-center">
-                  <div className="rounded-full h-8 w-8 bg-blue-400" />
-                </div>
+              <div className="flex justify-center mb-4">
+                <img 
+                  src="/lovable-uploads/54820891-5114-4e94-820d-2fdc3ed97e1c.png" 
+                  alt="WiFi and Tablet"
+                  className="w-36 h-36 object-contain"
+                />
               </div>
               <p className="text-blue-100">We're ready to connect to your device. Press the button below to complete setup.</p>
             </div>
