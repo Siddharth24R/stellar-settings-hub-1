@@ -21,7 +21,7 @@ const Dashboard = () => {
         </header>
         
         <div className="space-y-6">
-          <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white">
+          <Card className="bg-black/40 border border-blue-400/30 backdrop-blur-sm text-white rounded-sm">
             <Link to="/home">
               <div className="p-4 aspect-video relative bg-gray-900 rounded-lg overflow-hidden cursor-pointer transition-all hover:opacity-90">
                 {isLive ? <>
@@ -29,7 +29,7 @@ const Dashboard = () => {
                     <div className="absolute top-4 right-4 bg-black/60 text-white text-xs px-2 py-1 rounded-md">
                       LIVE
                     </div>
-                    <div className="flex items-center justify-center h-full rounded-md">
+                    <div className="flex items-center justify-center h-full rounded-md mx-0">
                       <p className="text-gray-400">Camera stream connecting to Python backend...</p>
                     </div>
                     <div className="absolute bottom-4 left-4 right-4 flex justify-between">
