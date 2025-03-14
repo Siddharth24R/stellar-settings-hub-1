@@ -12,17 +12,11 @@ interface User {
   photo?: string;
 }
 
-interface UserProfileData {
-  phone?: string;
-  dob?: string;
-  photo?: string;
-}
-
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name?: string, profileData?: UserProfileData) => Promise<void>;
+  register: (email: string, password: string, name?: string) => Promise<void>;
   googleLogin: () => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
@@ -94,7 +88,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-  const register = async (email: string, password: string, name?: string, profileData?: UserProfileData) => {
+  const register = async (email: string, password: string, name?: string) => {
     try {
       setLoading(true);
       // Simulate API call
@@ -110,9 +104,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         email, 
         name,
         notifications: true,
-        phone: profileData?.phone || '',
-        dob: profileData?.dob || '',
-        photo: profileData?.photo || '/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png'
+        photo: '/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png'
       };
       setUser(newUser);
       localStorage.setItem('iot_stellar_user', JSON.stringify(newUser));
