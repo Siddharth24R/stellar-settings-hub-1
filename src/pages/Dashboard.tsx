@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Settings, Power, Home as HomeIcon, Film } from 'lucide-react';
+import { Settings, Power } from 'lucide-react';
 
 const Dashboard = () => {
   const [isLive, setIsLive] = React.useState(true);
@@ -55,22 +55,6 @@ const Dashboard = () => {
               </div>
             </Link>
           </Card>
-        </div>
-
-        {/* Bottom Navigation Buttons */}
-        <div className="fixed bottom-0 left-0 right-0 bg-black/80 border-t border-blue-400/30 p-4 flex justify-around">
-          <Link to="/dashboard">
-            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
-              <HomeIcon className="h-6 w-6 mb-1" />
-              <span className="text-xs">Home</span>
-            </Button>
-          </Link>
-          <Link to="/clips">
-            <Button variant="ghost" className="text-blue-300 hover:text-blue-200 hover:bg-black/40 flex flex-col items-center">
-              <Film className="h-6 w-6 mb-1" />
-              <span className="text-xs">Clips</span>
-            </Button>
-          </Link>
         </div>
       </div>
     </div>

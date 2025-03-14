@@ -1,12 +1,12 @@
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { useAuth } from '@/contexts/AuthContext';
-import { Eye, EyeOff, Mail, Lock, User, Phone, Calendar, Loader2 } from 'lucide-react';
+import { Eye, EyeOff, Mail, Lock, User, Phone, Calendar, Loader2, ImagePlus } from 'lucide-react';
 import GoogleLoginButton from '@/components/GoogleLoginButton';
 
 const Register = () => {
@@ -20,6 +20,8 @@ const Register = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [profilePicture, setProfilePicture] = useState('/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png');
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { register, isAuthenticated } = useAuth();
 
@@ -29,6 +31,27 @@ const Register = () => {
       navigate('/dashboard');
     }
   }, [isAuthenticated, navigate]);
+
+  const handleProfilePictureClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+        if (event.target && event.target.result) {
+          setProfilePicture(event.target.result as string);
+        }
+      };
+      
+      reader.readAsDataURL(file);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +74,7 @@ const Register = () => {
     try {
       setIsSubmitting(true);
       // In a real app, we would pass additional profile fields to the register function
-      await register(email, password, name);
+      await register(email, password, name, { phone, dob, photo: profilePicture });
       // Additional fields would be saved in a user profile database table
       navigate('/device-setup');
     } catch (error) {
@@ -79,15 +102,28 @@ const Register = () => {
         <CardHeader className="space-y-1 text-center">
           <CardTitle className="text-2xl font-bold text-white">IoT_Stellar</CardTitle>
           
-          <div className="flex justify-center my-6">
-            <div className="rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-48 h-48 flex items-center justify-center bg-black/30">
+          <div className="flex flex-col items-center justify-center my-6">
+            <div 
+              className="relative rounded-full overflow-hidden border-4 border-blue-400 shadow-lg shadow-blue-500/50 w-48 h-48 flex items-center justify-center bg-black/30 cursor-pointer" 
+              onClick={handleProfilePictureClick}
+            >
               <img 
-                src="/lovable-uploads/7196715f-e658-4a40-8e49-3bd25b1192e8.png" 
-                alt="IoT Logo"
+                src={profilePicture}
+                alt="Profile"
                 className="w-full h-full object-cover"
               />
+              <div className="absolute bottom-0 right-0 bg-blue-500 rounded-full p-2">
+                <ImagePlus className="h-6 w-6 text-white" />
+              </div>
             </div>
-            <p className="text-xs text-blue-200/60 absolute mt-48">Profile Photo (Optional)</p>
+            <input 
+              type="file" 
+              ref={fileInputRef} 
+              className="hidden" 
+              accept="image/*"
+              onChange={handleFileChange}
+            />
+            <p className="text-xs text-blue-200/60 mt-2">Add Profile Pic</p>
           </div>
           
           <CardDescription className="text-blue-200">Create your IoT_Stellar account</CardDescription>

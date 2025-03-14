@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Link } from 'react-router-dom';
 import { Home as HomeIcon, Film } from 'lucide-react';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 const SecuritySettings = () => {
   const { user } = useAuth();
@@ -46,6 +47,15 @@ const SecuritySettings = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            <div className="flex items-center justify-center mb-4">
+              <Avatar className="h-20 w-20 border-2 border-blue-400">
+                <AvatarImage src={user?.photo} alt={user?.name || ''} />
+                <AvatarFallback className="bg-blue-900 text-blue-200 text-xl">
+                  {user?.name ? user.name.charAt(0).toUpperCase() : 'U'}
+                </AvatarFallback>
+              </Avatar>
+            </div>
+            
             <div className="p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg space-y-4">
               <div>
                 <Label htmlFor="security-email" className="font-medium text-blue-200 block mb-1">Email:</Label>

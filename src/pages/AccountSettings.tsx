@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Camera } from 'lucide-react';
+import { ArrowLeft, ImagePlus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/hooks/use-toast';
 import { Label } from '@/components/ui/label';
@@ -38,7 +38,8 @@ const AccountSettings = () => {
     updateUserProfile({
       name: profile.name,
       phone: profile.phone,
-      dob: profile.dob
+      dob: profile.dob,
+      photo: profile.photo
     });
     
     toast({
@@ -121,7 +122,7 @@ const AccountSettings = () => {
                   </Avatar>
                   {isEditing && (
                     <div className="absolute bottom-2 right-0 bg-blue-500 rounded-full p-1">
-                      <Camera className="h-4 w-4 text-white" />
+                      <ImagePlus className="h-4 w-4 text-white" />
                     </div>
                   )}
                 </div>
